@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách thể loại</title>
+</head>
+<body>
+<h2>Danh sách thể loại</h2>
+<a th:href="@{/theloai/create}">+ Thêm</a>
+<table border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Ảnh</th>
+        <th>Mô tả</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="it : ${items}">
+        <td th:text="${it.theLoaiId}"></td>
+        <td th:text="${it.tenTheLoai}"></td>
+        <td>
+            <img th:if="${it.image}" th:src="@{'/uploads/' + ${it.image}}" alt="" style="height:60px">
+        </td>
+        <td th:text="${it.moTa}"></td>
+        <td>
+            <a th:href="@{'/theloai/edit/' + ${it.theLoaiId}}">Sửa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

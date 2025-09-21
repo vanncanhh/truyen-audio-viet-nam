@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thể loại</title>
+</head>
+<body>
+<h2 th:text="${theLoai.theLoaiId} == null ? 'Tạo thể loại' : 'Sửa thể loại'"></h2>
+
+<form th:object="${theLoai}" method="post" enctype="multipart/form-data"
+      th:action="${theLoai.theLoaiId} == null ?
+                 @{/theloai/create} :
+                 @{/theloai/edit/{id}(id=${theLoai.theLoaiId})}">
+
+    <div>
+        <label>Tên thể loại</label>
+        <input type="text" th:field="*{tenTheLoai}">
+        <span th:if="${#fields.hasErrors('tenTheLoai')}" th:errors="*{tenTheLoai}">Lỗi</span>
+    </div>
+
+    <div>
+        <label>Mô tả</label>
+        <textarea th:field="*{moTa}"></textarea>
+    </div>
+
+    <div>
+        <label>Ảnh (jpg/png/webp/gif)</label>
+        <input type="file" name="imageFile" accept="image/*">
+        <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Lỗi</span>
+    </div>
+
+    <div th:if="${theLoai.image}">
+        <p>Ảnh hiện tại:</p>
+        <img th:src="@{/uploads/{file}(file=${theLoai.image})}" alt="ảnh thể loại" style="max-height:150px">
+    </div>
+
+    <button type="submit">Lưu</button>
+    <a th:href="@{/theloai}">Quay lại</a>
+</form>
+
+</body>
+</html>
